@@ -44,7 +44,8 @@ import java.util.Random;
  * Improvement: (1) Split files: class LineNumberReader and multi-thread pattern
  * might save some time when we split the file on multi-core cpu or distributed
  * system. It allows to read the same file with multiple thread on different
- * parts in parellel. (2) .
+ * parts in parellel. (2) Read and calculate hash map: use multi-thread pattern
+ * for each file.
  * 
  * @author ZhenshengTan
  *
@@ -189,8 +190,8 @@ public class TopK {
 	}
 
 	/**
-	 * multi-thread pattern could save some time, mind the system file
-	 * descriptor limits
+	 * Read from every sub files and calculate the number occurences. At the end of each sub file process, compare the hashmap
+	 * result with the top K elements.
 	 * 
 	 * @param input
 	 */
